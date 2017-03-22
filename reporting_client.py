@@ -16,8 +16,7 @@ import sys
 
 
 def get_arg_or_env_var(args, name):
-    """
-    Retrieve a named parameter's value, either from a command-line argument
+    """Retrieve a named parameter's value, either from a command-line argument
     or from an environment variable.
     Both the arguments and variables follow the OpenStack naming scheme.
     If no parameter with the given name is found, return None.
@@ -37,8 +36,7 @@ def get_arg_or_env_var(args, name):
 
 
 def get_one_report(client, report_name, **params):
-    """
-    Output data from the given-named report.
+    """Output data from the given-named report.
     """
     return client.fetch(report_name, **params)
 
@@ -117,8 +115,7 @@ def write_json(outfile, results):
 
 
 def main():
-    """
-    Test harness for OpenStack Reporting API client
+    """Test harness for OpenStack Reporting API client
     """
     args = parse_args()
     if args.debug:

@@ -6,17 +6,16 @@ in Comma-Separated Values format.
 """
 
 from __future__ import print_function
-import sys
-import os
 import argparse
 import logging
+import os
 from pprint import pprint
 from reportingclient.client import ReportingClient
+import sys
 
 
 def get_arg_or_env_var(args, name):
-    """
-    Retrieve a named parameter's value, either from a command-line argument
+    """Retrieve a named parameter's value, either from a command-line argument
     or from an environment variable.
     Both the arguments and variables follow the OpenStack naming scheme.
     If no parameter with the given name is found, return None.
@@ -36,8 +35,7 @@ def get_arg_or_env_var(args, name):
 
 
 def active_instances(client):
-    """
-    Return a data structure describing active cloud instances.
+    """Return a data structure describing active cloud instances.
     """
     logger = logging.getLogger(__name__)
     # grab all the required data
@@ -121,32 +119,28 @@ def active_instances(client):
 
 
 def test_one_report(client, report_name, **params):
-    """
-    Output data from the given-named report.
+    """Output data from the given-named report.
     """
     for result in client.fetch(report_name, **params):
         pprint(result)
 
 
 def test_all_reports(client, **params):
-    """
-    Output data from each available report in sequence.
+    """Output data from each available report in sequence.
     """
     for report_name in (report['name'] for report in client.get_reports()):
         test_one_report(client, report_name, **params)
 
 
 def test_active_instances(client):
-    """
-    Output information about active instances.
+    """Output information about active instances.
     """
     for result in active_instances(client):
         pprint(result)
 
 
 def main():
-    """
-    Test harness for OpenStack Reporting API client
+    """Test harness for OpenStack Reporting API client
     """
     parser = argparse.ArgumentParser(
         description='Compile list of all active instances.'
