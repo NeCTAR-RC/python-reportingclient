@@ -10,6 +10,9 @@ import argparse
 import logging
 import os
 from pprint import pprint
+from reportingclient.auth import KeystoneAuth
+from reportingclient.auth import KeystonePassword
+from reportingclient.auth import KeystoneToken
 from reportingclient.client import ReportingClient
 import sys
 
@@ -145,35 +148,7 @@ def main():
     parser = argparse.ArgumentParser(
         description='Compile list of all active instances.'
     )
-    parser.add_argument(
-        '--endpoint', required=False, default=None,
-        help='reporting-api endpoint'
-    )
-    parser.add_argument(
-        '--os-token', default=argparse.SUPPRESS,
-        help='auth token for reporting-api'
-    )
-    parser.add_argument(
-        '--debug', default=False, action='store_true',
-        help='enable debug output (for development)'
-    )
-    parser.add_argument(
-        '--os-username', default=argparse.SUPPRESS, help='Username'
-    )
-    parser.add_argument(
-        '--os-password', default=argparse.SUPPRESS, help="User's password"
-    )
-    parser.add_argument(
-        '--os-auth-url', default=argparse.SUPPRESS, help='Authentication URL'
-    )
-    parser.add_argument(
-        '--os-project-name', default=argparse.SUPPRESS,
-        help='Project name to scope to'
-    )
-    parser.add_argument(
-        '--os-tenant-name', default=argparse.SUPPRESS,
-        help='Project name to scope to'
-    )
+    KeystoneAuth.add_auth_arguments(parser)
     parser.add_argument(
         '--filter', default=[],
         action='append',
@@ -206,12 +181,31 @@ def main():
     project_name = get_arg_or_env_var(args, 'project_name')
     if not project_name:
         project_name = get_arg_or_env_var(args, 'tenant_name')
-    client = ReportingClient(endpoint=args.endpoint,
-                             username=username,
-                             password=password,
-                             project_name=project_name,
-                             auth_url=auth_url,
-                             token=token)
+    user_domain_name = get_arg_or_env_var(args, 'user_domain_name')
+    if not user_domain_name:
+        user_domain_name = 'default'
+    project_domain_name = get_arg_or_env_var(args, 'project_domain_name')
+    if not project_domain_name:
+        project_domain_name = 'default'
+    if token:
+        try:
+            auth = KeystoneToken(token=token,
+                                 auth_url=auth_url,
+                                 endpoint=args.endpoint)
+        except ValueError as e:
+            logger.exception("Authentication error: %s", e.message)
+            return 1
+    else:
+        try:
+            auth = KeystonePassword(auth_url=auth_url, endpoint=args.endpoint,
+                                    username=username, password=password,
+                                    project_name=project_name,
+                                    user_domain_name=user_domain_name,
+                                    project_domain_name=project_domain_name)
+        except ValueError as e:
+            logger.exception("Authentication error: %s", e.message)
+
+    client = ReportingClient(auth)
     if args.list_reports:
         reports = client.get_reports()
         for report in reports:
