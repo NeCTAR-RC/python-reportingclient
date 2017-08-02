@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ae5cdf2_f9b080f6",
+        "filename": "reporting_example.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000077
+      },
+      "writtenOn": "2017-08-02T03:34:01Z",
+      "side": 1,
+      "message": "Should change this too?",
+      "range": {
+        "startLine": 186,
+        "startChar": 28,
+        "endLine": 186,
+        "endChar": 35
+      },
+      "revId": "b8559986c1054ee0f77085719b8427ba918326af",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ae5cdf2_19952c40",
+        "filename": "reporting_example.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000077
+      },
+      "writtenOn": "2017-08-02T03:34:01Z",
+      "side": 1,
+      "message": "and this",
+      "range": {
+        "startLine": 189,
+        "startChar": 31,
+        "endLine": 189,
+        "endChar": 38
+      },
+      "revId": "b8559986c1054ee0f77085719b8427ba918326af",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ae5cdf2_3992e857",
+        "filename": "reportingclient/auth.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000077
+      },
+      "writtenOn": "2017-08-02T03:34:01Z",
+      "side": 1,
+      "message": "Want to change these ones too?",
+      "range": {
+        "startLine": 114,
+        "startChar": 57,
+        "endLine": 114,
+        "endChar": 64
+      },
+      "revId": "b8559986c1054ee0f77085719b8427ba918326af",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": false
+    }
+  ]
+}
